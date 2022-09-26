@@ -1,0 +1,50 @@
+.containerLogin{
+    display: flex;
+    justify-content: center;
+
+}
+
+.imgBanner{
+    height: 100vh;
+    width: 50%;
+}
+.loginForm{
+    height: 100vh;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.content_signin{
+    color: rgb(5, 117, 230);
+    font-size: 33px;
+    transition: font-size 0.2s ease-in 0s;
+    font-family: GothicB;
+    text-align: center;
+}
+
+.input_user{
+    width: 100%;
+    height: 20px;
+}
+.input_pw{
+    width: 100%;
+    height: 20px;
+}
+.submit{
+    width: 103%;
+}
+
+@media only screen and (max-width: 744px) {
+    .containerLogin{
+        display: block;
+        
+    }
+    .imgBanner{
+        height: 100vh;
+        width: 100%;
+    }
+    
+  } 
