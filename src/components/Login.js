@@ -1,25 +1,34 @@
 import React, { useState } from 'react'
 import ContainerImage from './../assets/Image/image_container.png'
 import "./Login.css"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
   function Login(props) {
     let navigate = useNavigate();
 
-    const [useremail, setUseremail] = useState("")
-    const [password, setPassword] = useState("")
-    const [error, setError] = useState("");
+    const [useremail, setUseremail] = useState("");
+    const [password, setPassword] = useState("");
+    const a = ("phuong@gmail.com");
+    const b = ("123456");
 
     const login = () => {
       if(!useremail || !password){
         console.log("Nhập sai, vui lòng nhập lại email hoặc password!");
+        navigate("/login");
       }
-      else{
+      else if(useremail != a || password !=b){
+        console.log("Nhập sai, vui lòng nhập lại email hoặc password!");
+        navigate("/login");
+      }
+      
+      else if(useremail === a && password === b){
         console.log("Đăng nhập thành công");
+        navigate("/home");
       }
-    navigate("/home");
+      
+    
     }
     
     return (
