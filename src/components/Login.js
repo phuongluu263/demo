@@ -31,37 +31,16 @@ import Home from './Home';
           localStorage.setItem("passwordData", "123456")
           console.log("Logged in successfully");
           alert("Logged in successfully!");
-          navigate("/home");
+          navigate("/");
         }
 
-        else if(useremail !== a && password !==b){
+        else if(useremail !== a || password !==b){
           console.log("Entered wrong, please re-enter email or password!");
           alert("Entered wrong, please re-enter email or password");
-          navigate("/login");
           setError({
             useremail: "Email is not valid",
             password: "Password is not valid"
           })
-        }
-
-        else if(useremail !== a){
-          setError({
-            useremail: "Email is not valid",
-            password: ""
-          })
-
-          console.log("Entered wrong, please re-enter email!");
-          alert("Entered wrong, please re-enter email!");
-          navigate("/login");
-        }
-        else if(password !== b){
-          setError({
-            useremail: "",
-            password: "Password is not valid"
-          })
-          console.log("Entered wrong, please re-enter password!");
-          alert("Entered wrong, please re-enter password!");
-          navigate("/login");
         }
     
     }
@@ -70,8 +49,8 @@ import Home from './Home';
       const getEmail = localStorage.getItem("emailData")
       const getPassword = localStorage.getItem("passwordData")
   
-      if(getEmail || getPassword){
-        navigate("/home");
+      if(getEmail === "phuong@gmail.com" && getPassword === "123456"){
+        navigate("/");
       }
     }, []);
     

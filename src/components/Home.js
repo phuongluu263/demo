@@ -12,7 +12,7 @@ function Home() {
     const getEmail = localStorage.getItem("emailData")
     const getPassword = localStorage.getItem("passwordData")
 
-    if(!getEmail || !getPassword){
+    if(getEmail !== ("phuong@gmail.com") || getPassword !== "123456"){
       navigate("/login");
     }
   }, []);
