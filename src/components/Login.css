@@ -176,6 +176,11 @@
         font-weight: 600;
         text-decoration: none;
     }
+
+.error{
+    font-family: Gothic;
+    color: red;
+}
 @media only screen and (max-width: 744px) {
     .containerLogin{
         display: block;

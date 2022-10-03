@@ -22,7 +22,7 @@ function App() {
         <Route path="/*" element={<notFound />} />
       </Routes>
     </Router>
-  )
+  );
     
 }
 

@@ -1,42 +1,92 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import ContainerImage from './../assets/Image/image_container.png'
 import "./Login.css"
 import { Link, useNavigate } from "react-router-dom";
+import Home from './Home';
 
 
 
   function Login(props) {
     let navigate = useNavigate();
 
-    const [useremail, setUseremail] = useState("");
-    const [password, setPassword] = useState("");
+
     const a = ("phuong@gmail.com");
     const b = ("123456");
 
-    const login = () => {
-      if(!useremail || !password){
-        console.log("Nhập sai, vui lòng nhập lại email hoặc password!");
-        navigate("/login");
-      }
-      else if(useremail != a || password !=b){
-        console.log("Nhập sai, vui lòng nhập lại email hoặc password!");
-        navigate("/login");
-      }
-      
-      else if(useremail === a && password === b){
-        console.log("Đăng nhập thành công");
-        navigate("/home");
-      }
-      
+    const [useremail, setUseremail] = useState("");
+    const [password, setPassword] = useState("");
+
+    
+
+
+    const [error, setError] = useState({
+      useremail: "",
+      password: ""
+    });
+
+    const handleSubmit = () => {
+
+        if(useremail === a && password === b){
+          localStorage.setItem("emailData", "phuong@gmail.com")
+          localStorage.setItem("passwordData", "123456")
+          console.log("Logged in successfully");
+          alert("Logged in successfully!");
+          navigate("/home");
+        }
+
+        else if(useremail !== a && password !==b){
+          console.log("Entered wrong, please re-enter email or password!");
+          alert("Entered wrong, please re-enter email or password");
+          navigate("/login");
+          setError({
+            useremail: "Email is not valid",
+            password: "Password is not valid"
+          })
+        }
+
+        else if(useremail !== a){
+          setError({
+            useremail: "Email is not valid",
+            password: ""
+          })
+
+          console.log("Entered wrong, please re-enter email!");
+          alert("Entered wrong, please re-enter email!");
+          navigate("/login");
+        }
+        else if(password !== b){
+          setError({
+            useremail: "",
+            password: "Password is not valid"
+          })
+          console.log("Entered wrong, please re-enter password!");
+          alert("Entered wrong, please re-enter password!");
+          navigate("/login");
+        }
     
     }
+
+    useEffect(() => {
+      const getEmail = localStorage.getItem("emailData")
+      const getPassword = localStorage.getItem("passwordData")
+  
+      if(getEmail || getPassword){
+        navigate("/home");
+      }
+    }, []);
+    
     
     return (
       <div className='containerLogin'>
         <img className='imgBanner' src={ContainerImage} alt = "image" />
+
+        
         <div className='loginForm'>
-          {/* <div className='signin'> */}
-            <form className='form_signin'>
+          {
+            // getEmail && getPassword? 
+            // <Home />:
+
+            <form onSubmit={handleSubmit} className='form_signin'>
             <h1 className='content_signin'>Sign in</h1>
               <div className='main_email'>
                 <label for="user_email">Email Address  </label>
@@ -54,6 +104,8 @@ import { Link, useNavigate } from "react-router-dom";
                     </span>
                     <input type="email" id="user_email" placeholder="" name="email" className='input_user' onChange={(e) => setUseremail(e.target.value)}></input>
                   </span>  
+                  
+                  <div className='error'>{error.useremail}</div>
               </div>
 
               <div className='main_password'>
@@ -80,11 +132,12 @@ import { Link, useNavigate } from "react-router-dom";
                     </span>
                   </span>
                 </span>
+                <div className='error'>{error.password}</div>
               </div>  
 
               <div className='forget_password'><a href="/forget-password">Forget Password</a></div>
               <div>
-                  <button className='btn_submit' type="button" onClick={login}>Submit</button>
+                  <button className='btn_submit' type="button" onClick={handleSubmit}>Submit</button>
               </div>
               <div className='scan_or'>
                   <div className='or'></div> OR <div className='or'></div>
@@ -92,15 +145,9 @@ import { Link, useNavigate } from "react-router-dom";
               <div className='tech'>
                   <a className='register' href="/register">REGISTER A NEW ACCOUNT</a>
               </div> 
+            </form>      
+          }
 
-              {/* <br />
-              {useremail}
-              <br />
-              {password}          */}
-            </form>
-            
-            
-          {/* </div> */}
         </div>
       </div>
     ) 
