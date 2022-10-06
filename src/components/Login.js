@@ -9,18 +9,8 @@ import users from '../data/users';
   function Login(props) {
     let navigate = useNavigate();
 
-    // console.log(users);
-
-    // const a = ("phuong@gmail.com");
-    // const b = ("123456");
-
     const [useremail, setUseremail] = useState("");
     const [password, setPassword] = useState("");
-    
-    
-    const item_email = users[0].email ;
-    const item_pasword = users[0].password;
-    console.log(item_email, item_pasword)
     
 
 
@@ -28,19 +18,19 @@ import users from '../data/users';
       useremail: "",
       password: ""
     });
-
+    
     const handleSubmit = () => {
 
-        if(useremail === item_email  && password === item_pasword){
-          localStorage.setItem("tokenData", users[0].token)
-          console.log("Logged in successfully");
-          alert("Logged in successfully!");
-          navigate("/");
+        for(let i of users){
+          if(useremail === i.email  && password === i.password){
+            localStorage.setItem("tokenData", i.token)
+            alert("Logged in successfully!");
+            navigate("/");
+          }
+  
+          
         }
-
-        else if(useremail !== item_email || password !== item_pasword ){
-          console.log("Entered wrong, please re-enter email or password!");
-          alert("Entered wrong, please re-enter email or password");
+         if(useremail !== users.email || password !== users.password ){
           setError({
             useremail: "Email is not valid",
             password: "Password is not valid"
@@ -50,9 +40,9 @@ import users from '../data/users';
     }
 
     useEffect(() => {
-      const token = localStorage.getItem('token');
-      if(token) {
-        navigate('/');
+      const token = localStorage.getItem('tokenData');
+      if(token ) {
+        navigate("/");
       }
     }, []);
 

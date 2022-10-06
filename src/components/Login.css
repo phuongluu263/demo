@@ -31,7 +31,7 @@
 .text_useremail{
     position: relative;
     display: inline-block;
-    width: 110%;
+    width: 140%;
     min-width: 0;
     padding: 7px 11px;
     color: rgba(0,0,0,.85);
@@ -60,7 +60,7 @@
 .sidebar_password{
 
     position: relative;
-    width: 110%;
+    width: 140%;
     min-width: 0;
     padding: 7px 11px;
     color: rgba(0,0,0,.85);
@@ -98,7 +98,8 @@
     }
 .content_signin{
     color: rgb(5, 117, 230);
-    font-size: 33px;
+    font-size: 40px;
+    width: 140%;
     transition: font-size 0.2s ease-in 0s;
     font-family: GothicB;
     text-align: center;
@@ -123,7 +124,7 @@
     padding: 6px 50px;
     border: 2px solid;
     font-size: 18px;
-    width: 121%;
+    width: 141%;
     color: rgb(255, 255, 255);
     margin: 1rem 0px;
     transition: background-color 0.3s ease 0s;
@@ -131,7 +132,7 @@
     background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121));
 }
 .forget_password{
-    width: 125%;
+    width: 145%;
     display: flex;
     flex-direction: row;
     -webkit-box-pack: end;
@@ -152,7 +153,7 @@
     -webkit-box-align: center;
     align-items: center;
     margin: 1rem auto;
-    width: 120%;
+    width: 140%;
 }
     .or{
         width: 100%;
@@ -163,7 +164,7 @@
 
 .tech{
     margin-top: 16px;
-    width: 118%;
+    width: 138%;
     padding: 5px;
     text-align: center;
 }    
