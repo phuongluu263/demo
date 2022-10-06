@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import users from '../data/users';
 
 function Home() {
   let navigate = useNavigate();
+
 
   const handleClick = () =>{
     localStorage.clear();
     window.location.reload();
   }
   useEffect(() => {
-    const getEmail = localStorage.getItem("emailData")
-    const getPassword = localStorage.getItem("passwordData")
-
-    if(getEmail !== ("phuong@gmail.com") || getPassword !== "123456"){
-      navigate("/login");
-    }
+    const token = localStorage.getItem('token');
+      if(!token) {
+        navigate('/login');
+      }
   }, []);
   return(
     <>

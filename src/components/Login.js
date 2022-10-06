@@ -3,19 +3,24 @@ import ContainerImage from './../assets/Image/image_container.png'
 import "./Login.css"
 import { Link, useNavigate } from "react-router-dom";
 import Home from './Home';
-
+import users from '../data/users';
 
 
   function Login(props) {
     let navigate = useNavigate();
 
+    // console.log(users);
 
-    const a = ("phuong@gmail.com");
-    const b = ("123456");
+    // const a = ("phuong@gmail.com");
+    // const b = ("123456");
 
     const [useremail, setUseremail] = useState("");
     const [password, setPassword] = useState("");
-
+    
+    
+    const item_email = users[0].email ;
+    const item_pasword = users[0].password;
+    console.log(item_email, item_pasword)
     
 
 
@@ -26,15 +31,14 @@ import Home from './Home';
 
     const handleSubmit = () => {
 
-        if(useremail === a && password === b){
-          localStorage.setItem("emailData", "phuong@gmail.com")
-          localStorage.setItem("passwordData", "123456")
+        if(useremail === item_email  && password === item_pasword){
+          localStorage.setItem("tokenData", users[0].token)
           console.log("Logged in successfully");
           alert("Logged in successfully!");
           navigate("/");
         }
 
-        else if(useremail !== a || password !==b){
+        else if(useremail !== item_email || password !== item_pasword ){
           console.log("Entered wrong, please re-enter email or password!");
           alert("Entered wrong, please re-enter email or password");
           setError({
@@ -46,13 +50,13 @@ import Home from './Home';
     }
 
     useEffect(() => {
-      const getEmail = localStorage.getItem("emailData")
-      const getPassword = localStorage.getItem("passwordData")
-  
-      if(getEmail === "phuong@gmail.com" && getPassword === "123456"){
-        navigate("/");
+      const token = localStorage.getItem('token');
+      if(token) {
+        navigate('/');
       }
     }, []);
+
+
     
     
     return (
@@ -62,8 +66,6 @@ import Home from './Home';
         
         <div className='loginForm'>
           {
-            // getEmail && getPassword? 
-            // <Home />:
 
             <form onSubmit={handleSubmit} className='form_signin'>
             <h1 className='content_signin'>Sign in</h1>
