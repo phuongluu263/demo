@@ -11,8 +11,6 @@ import users from '../data/users';
 
     const [useremail, setUseremail] = useState("");
     const [password, setPassword] = useState("");
-    
-
 
     const [error, setError] = useState({
       useremail: "",
@@ -22,7 +20,7 @@ import users from '../data/users';
     const handleSubmit = () => {
 
         for(let i of users){
-          if(useremail === i.email  && password === i.password){
+          if(useremail === i.email && password === i.password){
             localStorage.setItem("tokenData", i.token)
             alert("Logged in successfully!");
             navigate("/");
@@ -52,11 +50,8 @@ import users from '../data/users';
     return (
       <div className='containerLogin'>
         <img className='imgBanner' src={ContainerImage} alt = "image" />
-
-        
         <div className='loginForm'>
           {
-
             <form onSubmit={handleSubmit} className='form_signin'>
             <h1 className='content_signin'>Sign in</h1>
               <div className='main_email'>

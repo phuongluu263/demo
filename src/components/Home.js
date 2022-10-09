@@ -1,32 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import users from '../data/users';
 import './Home.css';
 function Home() {
   let navigate = useNavigate();
-  const token = localStorage.getItem('tokenData');
+  
+  const [user, setUser] = useState([])
 
-    let userEmail;
-    let userName;
-    let userRole;
-      for (let i of users){
-        if (token === i.token){
-          userEmail = i.email;
-          userName = i.name;
-          userRole = i.role;
-
-        }
-      }
-
+  
   const handleClick = () =>{
     localStorage.clear();
     window.location.reload();
+    navigate('/login');
   }
+
+
   useEffect(() => {
+    const token = localStorage.getItem('tokenData')
+    var newUser = users.map(handleUser)
+
+    function handleUser(user) {
+      if (token === user.token)
+        setUser({
+          name: user.name,
+          email: user.email,
+          role: user.role
+        })
+    }
       if(!token ) {
         navigate('/login');
       }
-  }, []);
+  },[]);
   return(
     <>
       <header className="p-3 bg-dark text-white">
@@ -46,9 +50,9 @@ function Home() {
           <div className="home-title">List User</div>
           <div className="home-userlist">
             <div className="user-container">
-              <div className="users_name">Name: {userName}</div>
-              <div className="users_email">Email: {userEmail}</div>
-              <div className="users_role">Role: {userRole}</div>
+              <div className="users_name">Name: {user.name}</div>
+              <div className="users_email">Email: {user.email}</div>
+              <div className="users_role">Role: {user.role}</div>
             </div>  
           </div>
         </main>
