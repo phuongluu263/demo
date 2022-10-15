@@ -1,14 +1,13 @@
 import React, { useState, useEffect} from 'react'
 import ContainerImage from './../assets/Image/image_container.png'
 import "./Login.css"
-import { Link, useNavigate } from "react-router-dom";
-import Home from './Home';
+import { useNavigate } from "react-router-dom";
 import users from '../data/users';
 
 
   function Login(props) {
     let navigate = useNavigate();
-
+    
     const [useremail, setUseremail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -25,8 +24,6 @@ import users from '../data/users';
             alert("Logged in successfully!");
             navigate("/");
           }
-  
-          
         }
          if(useremail !== users.email || password !== users.password ){
           setError({
@@ -37,12 +34,15 @@ import users from '../data/users';
     
     }
 
+
     useEffect(() => {
       const token = localStorage.getItem('tokenData');
-      if(token ) {
+      if(token) {
         navigate("/");
       }
-    }, []);
+    },[]);
+
+
 
 
     

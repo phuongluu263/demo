@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home'
 import About from './components/About'
 import Products from './components/Products'
-import notFound from './components/notFound'
+// import notFound from './components/notFound'
 import Login from './components/Login'
+import Admin from './components/Admin';
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
         <Route path="/notfound" element={<notFound />} />

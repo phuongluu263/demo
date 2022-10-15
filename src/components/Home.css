@@ -1,3 +1,98 @@
+.header_item{
+    display: flex;
+    justify-items: center;
+}
+.content_vd{
+    width: 60%;
+}
+.lg_container{
+    background-color: #666688;
+    width: 40%;
+    height: 60px;
+}
+    .text-end{
+        display: flex;
+        justify-items: center;
+    }
+        .user{
+            float: left;
+            margin-right: 10px;
+            margin-top: 5px;
+            color: white;
+        }
+        .btn_lg{
+            background-color: #ff9999;
+        }
+.banner_lg{
+    width: 100%;
+    height: 92.4vh;
+    background: linear-gradient(to bottom left, #ff9999 0%, #666699 76%);
+}
+    .comment_lg{
+        float: left;
+        margin-right: 20px;
+        padding-top: 20px;
+    }
+        .container_lg{
+            display: flex;
+            justify-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+        }
+            .time{
+                float: left;
+                margin-left: 15px;
+                padding-top: 5px;
+            }
+            .content_p{
+                float: right;
+                margin-left: 15px;     
+                padding-top: 5px;          
+            }
+.chat_box{
+    width: 99%;
+    height: 280px;
+    overflow: scroll;
+    margin-left: 10px;
+}                   
+.container{
+    margin-block: 10px;
+}
+.frm_bannerChat{
+    border: 1px solid #0099ff;
+    margin-top: 1.5%;
+    margin-left: 10px;
+    border-radius: 20px;
+    padding: 7px;
+}
+    .frm_chat{
+        width: 80%;
+        height: 20px;
+        border: none;
+        outline: none;
+        margin-left: 15px;
+        
+    }
+
+    .heart{
+        color: red;
+        width: 30px;
+        height: 50px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .send_icons{
+        color: gray;
+        width: 30px;
+        height: 50px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .btn_chat{
+        border: 0;
+        background-color: white;
+    }
 .App{
     display: flex;
     flex-direction: column;
