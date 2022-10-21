@@ -64,29 +64,33 @@ function Products(props) {
             </div>
           </div>
           <div className="p-3 text-dark list_sidebar">
-            <div className='listbox_products'>
-              <tbody className='header_listbox'>
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Image</th>
-                    <th>Price</th>
-                    <th>Rating</th>
-                  </tr>
+            <div class="row container bg-white">
+              <table>
+                <tr>
+                  <th>Id</th>
+                  <th>Title</th>
+                  <th>Brand</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Image</th>
+                </tr>
+                <tbody> 
                   {postProducts.map((item, index) => (
                   <tr key={index}>
-                      <td>{item.id}</td>
-                      <td>{item.title}</td>
-                      <td>{item.brand}</td>
+                    <td>{item.id}</td>
+                    <td>{item.title}</td>
+                    <td>{item.brand}</td>
+                    <td>{item.price}</td>
+                    <td>{item.stock}</td>
+                    <td>{item.price*item.stock}$ </td>
                       <td>
-                      <img src={item.thumbnail} alt="" height={100} />
+                        <img className='picture' src={item.thumbnail} alt="" height={100} />
                       </td>
-                      <td>{item.price}</td>
-                      <td>{item.rating}</td>
                   </tr>
                   ))}
-              </tbody>
+                </tbody>
+              </table>
             </div> 
           </div>
         </div>

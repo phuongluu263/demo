@@ -65,29 +65,31 @@ function Users(props) {
             </div>
           </div>
           <div className="p-3 text-dark list_sidebar">
-            <div className='listbox_products'>
-              <tbody>
-                <tr>
-                    <th>ID</th>
-                    <th>firstName</th>
-                    <th>lastName</th>
-                    <th>email</th>
-                    <th>Phone</th>
-                    <th>Image</th>
-                </tr>
-                {postUsers.map((item, index) => (
-                <tr key={index}>
-                    <td>{item.id}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                    <td>
-                        <img src={item.image} alt="" height={100} />
-                    </td>
-                </tr>
-                ))}
-              </tbody>
+            <div className='row container bg-white'>
+              <table>
+                <tbody>
+                  <tr>
+                      <th>ID</th>
+                      <th>firstName</th>
+                      <th>lastName</th>
+                      <th>email</th>
+                      <th>Phone</th>
+                      <th>Image</th>
+                  </tr>
+                  {postUsers.map((item, index) => (
+                  <tr key={index}>
+                      <td>{item.id}</td>
+                      <td>{item.firstName}</td>
+                      <td>{item.lastName}</td>
+                      <td>{item.email}</td>
+                      <td>{item.phone}</td>
+                      <td>
+                          <img src={item.image} alt="" height={100} />
+                      </td>
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
             </div> 
           </div>
         </div>

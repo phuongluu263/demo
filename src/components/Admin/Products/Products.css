@@ -5,7 +5,7 @@
 }
 .header_products{
     width: 15%;
-    height: 395.5vh;
+    height: 530vh;
     background-color: cadetblue;
 }
 
@@ -55,7 +55,7 @@
 
 
 .frm_header{
-    background-color: whitesmoke;
+    background-color: white;
     width: 85%;
     height: 60px;
 }    
@@ -71,8 +71,29 @@
 
 .list_sidebar{
     height: auto;
+    background-color: whitesmoke;
 }    
 
 .listbox_products{
     margin-left: 20px;
+}
+
+.container {
+    margin: 25px 10px 25px 30px;
+    min-width: 95%;
+    overflow-x: auto;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th{
+    padding: 15px;
+}
+td{
+    padding: 15px;
+}
+.picture{
+    height: 100px;
+    width: 150px;
 }
