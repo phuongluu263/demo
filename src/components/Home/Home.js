@@ -12,8 +12,10 @@ function Home() {
   const handleSubmitMessages = (event) => {
     event.preventDefault()
     console.log('input chat', {message})
-    setMessages(event => [...event, message])
-    setMessage("");
+    if(message){
+      setMessages(event => [...event, message])
+      setMessage("");
+    }
   };
   
   const handleClick = () =>{
@@ -61,8 +63,10 @@ function Home() {
             <div className='chat_box'>
               <div className="container">
                 <ul>
-                  {messages.map((message, messages) => (
-                    <li key={messages}>{user.name}: {message}</li>
+                  {messages.map((message, index) => (
+                    <li key={index}>
+                      <p>{user.name}: {message}</p>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -70,7 +74,7 @@ function Home() {
 
             <div className='chat_frm_mss'>
               <span className='frm_bannerChat'>
-                <input placeholder="Type your message" className='frm_chat' onChange={(e) => setMessage(e.target.value)}></input>
+                <input placeholder="Type your message" className='frm_chat' onChange={(event) => setMessage(event.target.value)} value={message}></input>
               </span>  
               
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-heart-fill heart" viewBox="0 0 16 16">
