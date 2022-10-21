@@ -1,10 +1,12 @@
 import './App.css';
-import Home from './components/Home'
+import Home from './components/Home/Home'
 import About from './components/About'
-import Products from './components/Products'
 // import notFound from './components/notFound'
-import Login from './components/Login'
-import Admin from './components/Admin';
+import Login from './components/Login/Login'
+import Admin from './components/Admin/Admin';
+import Products from './components/Admin/Products/Products'
+import Posts from './components/Admin/Posts/Posts'
+import Users from './components/Admin/Users/Users'
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,9 +21,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />} />
         <Route path="/notfound" element={<notFound />} />
+        <Route path="/admin/products" element={<Products />} />
+        <Route path="/admin/posts" element={<Posts />} />
+        <Route path="/admin/users" element={<Users />} />
       </Routes>
+
     </Router>
   );
     

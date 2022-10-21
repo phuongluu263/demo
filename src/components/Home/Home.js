@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import users from '../data/users';
+import users from '../../data/users';
 import './Home.css';
 function Home() {
   let navigate = useNavigate();
@@ -20,13 +20,6 @@ function Home() {
     localStorage.clear();
     window.location.reload();
   }
-
-  
-  // const handleChat = (event) =>{
-  //   event.preventDefault()
-  //   console.log('input data:', message)
-    
-  // }
 
 
   useEffect(() => {

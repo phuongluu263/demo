@@ -31,7 +31,7 @@
 .text_useremail{
     position: relative;
     display: inline-block;
-    width: 140%;
+    width: 120%;
     min-width: 0;
     padding: 7px 11px;
     color: rgba(0,0,0,.85);
@@ -60,7 +60,7 @@
 .sidebar_password{
 
     position: relative;
-    width: 140%;
+    width: 120%;
     min-width: 0;
     padding: 7px 11px;
     color: rgba(0,0,0,.85);
@@ -124,7 +124,7 @@
     padding: 6px 50px;
     border: 2px solid;
     font-size: 18px;
-    width: 141%;
+    width: 127%;
     color: rgb(255, 255, 255);
     margin: 1rem 0px;
     transition: background-color 0.3s ease 0s;
@@ -132,7 +132,7 @@
     background: linear-gradient(to right, rgb(5, 117, 230), rgb(2, 27, 121));
 }
 .forget_password{
-    width: 145%;
+    width: 125%;
     display: flex;
     flex-direction: row;
     -webkit-box-pack: end;
@@ -153,7 +153,7 @@
     -webkit-box-align: center;
     align-items: center;
     margin: 1rem auto;
-    width: 140%;
+    width: 120%;
 }
     .or{
         width: 100%;
