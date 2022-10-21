@@ -13,10 +13,7 @@ function Admin(props) {
   let navigate = useNavigate();
   
   const [user, setUser] = useState({})
-  const [postProducts, setPostProducts] = useState([])
-  const [sidebar, setSidebar] = useState(false)
 
-  
   const handleClick = () =>{
     localStorage.clear();
     window.location.reload();

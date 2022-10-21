@@ -1,11 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import './Products.css'
+import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import {sideBarData} from './../sideBarData'
 function Products(props) {
+    let navigate = useNavigate();
     const [postProducts, setPostProducts] = useState([])
+    const [user, setUser] = useState({})
+    const handleClick = () =>{
+      localStorage.clear();
+      window.location.reload();
+    }
+    useEffect(() => {
+      const token = localStorage.getItem('tokenData')
+      users.map(handleUser);
+      
+  
+      function handleUser(user) {
+        if (token === user.token){
+          setUser({
+            name: user.name,
+            email: user.email,
+            role: user.role
+          })
+        }
+      } 
+      if(!token){
+        navigate('/login')
+      }
+      
+    },[]);
     const fetchDataProducts = () => {
         fetch('https://dummyjson.com/products')
           .then((response) => response.json())
@@ -59,7 +85,7 @@ function Products(props) {
                 <li><Link to="/" className="nav-link px-2 text-dark pl">Admin / Products</Link></li>
               </ul>
               <div className="btn_logout">
-                <Link className="btn btn-outline-light me-2 btn_lg"><HiIcons.HiOutlineLogout />Logout</Link>
+                <Link onClick={handleClick} className="btn btn-outline-light me-2 btn_lg"><HiIcons.HiOutlineLogout />Logout</Link>
               </div>
             </div>
           </div>
