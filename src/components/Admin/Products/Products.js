@@ -4,29 +4,20 @@ import './Products.css'
 import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
+import * as RiIcons from "react-icons/ri";
+import * as FiIcons from "react-icons/fi";
 import {sideBarData} from './../sideBarData'
+import {sideBarDataProducts} from './sideBarDataProducts'
 function Products(props) {
     let navigate = useNavigate();
     const [postProducts, setPostProducts] = useState([])
-    const [user, setUser] = useState({})
+
     const handleClick = () =>{
       localStorage.clear();
       window.location.reload();
     }
     useEffect(() => {
       const token = localStorage.getItem('tokenData')
-      users.map(handleUser);
-      
-  
-      function handleUser(user) {
-        if (token === user.token){
-          setUser({
-            name: user.name,
-            email: user.email,
-            role: user.role
-          })
-        }
-      } 
       if(!token){
         navigate('/login')
       }
@@ -89,6 +80,24 @@ function Products(props) {
               </div>
             </div>
           </div>
+
+          <div className='frm_action'>
+            <ul className='nav_list'>
+              {sideBarDataProducts.map((item, index) => {
+                return(
+                  <li key={index} className = {item.cName}>
+                    <Link to = {item.path}>
+                      {item.icon}
+                      <span>
+                        {item.title}
+                      </span>
+                    </Link>
+                  </li>        
+                )
+              })}
+            </ul>
+          </div>
+
           <div className="p-3 text-dark list_sidebar">
             <div class="row container bg-white">
               <table>
@@ -97,9 +106,10 @@ function Products(props) {
                   <th>Title</th>
                   <th>Brand</th>
                   <th>Price</th>
-                  <th>Quantity</th>
+                  <th>Stock</th>
                   <th>Total</th>
                   <th>Image</th>
+                  <th>Actions</th>
                 </tr>
                 <tbody> 
                   {postProducts.map((item, index) => (
@@ -110,11 +120,16 @@ function Products(props) {
                     <td>{item.price}</td>
                     <td>{item.stock}</td>
                     <td>{item.price*item.stock}$ </td>
-                      <td>
-                        <img className='picture' src={item.thumbnail} alt="" height={100} />
-                      </td>
+                    <td>
+                      <img className='picture' src={item.thumbnail} alt="" height={100} />
+                    </td>
+                    <td>
+                      <Link to='/admin/products' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
+                      <Link to='/admin/products' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                    </td>
                   </tr>
                   ))}
+
                 </tbody>
               </table>
             </div> 

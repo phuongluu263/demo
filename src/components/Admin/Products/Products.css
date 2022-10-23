@@ -5,7 +5,7 @@
 }
 .header_products{
     width: 15%;
-    height: 530vh;
+    height: 410vh;
     background-color: cadetblue;
 }
 
@@ -78,15 +78,47 @@
     margin-left: 20px;
 }
 
+/* .frm_action{
+
+} */
+.action-text{
+    margin-right: 30px;
+    padding: 0;
+    width: 10%;
+    list-style: none;
+    height: 50px;
+    float: right;
+    background-color: red;
+    border-color: red;
+    border-radius: 10px;
+}    
+    .action-text a{
+        text-decoration: none;
+        color: white;
+        font-size: 15px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        border-radius: 10px;
+    }
+    .action-text a:hover{
+        background-color: #0d6efd;
+    }
+    span{
+        margin-left: 16px;
+    }
+
 table{
     border-collapse: collapse;
     width: 100%;
 }
 th{
-    padding: 15px;
+    padding: 18px;
 }
-td{
-    padding: 15px;
+
+.ed{
+    margin-left: 5px;
 }
 .picture{
     height: 100px;

@@ -21,6 +21,9 @@
         margin-top: 50px;
         margin-left: 50px;
     }
+    .icons_products a{
+        color: white;
+    }
 
 .nav-text{
     margin: 0;

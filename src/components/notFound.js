@@ -1,10 +1,14 @@
 import React from 'react'
 
-function notFound(props) {
+function NotFound(props) {
   return (
-    <div>notFound</div>
+    <div>
+      <div>
+        hello
+      </div>
+    </div>
   )
 }
 
 
-export default notFound
+export default NotFound

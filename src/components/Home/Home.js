@@ -64,7 +64,7 @@ function Home() {
               <div className="container">
                 <ul>
                   {messages.map((message, index) => (
-                    <li key={index}>
+                    <li className='msg_list' key={index}>
                       <p>{user.name}: {message}</p>
                     </li>
                   ))}

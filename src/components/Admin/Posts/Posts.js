@@ -4,7 +4,10 @@ import './Posts.css'
 import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
+import * as RiIcons from "react-icons/ri";
+import * as FiIcons from "react-icons/fi";
 import {sideBarData} from './../sideBarData'
+import {sideBarDataPosts} from './sideBarDataPosts'
 function Posts(props) {
     let navigate = useNavigate();
     const [postPosts, setPostPosts] = useState([])
@@ -90,14 +93,33 @@ function Posts(props) {
               </div>
             </div>
           </div>
+
+          <div className='frm_action'>
+            <ul className='nav_list'>
+              {sideBarDataPosts.map((item, index) => {
+                return(
+                  <li key={index} className = {item.cName}>
+                    <Link to = {item.path}>
+                      {item.icon}
+                      <span>
+                        {item.title}
+                      </span>
+                    </Link>
+                  </li>        
+                )
+              })}
+            </ul>
+          </div>
+              
           <div className="p-3 text-dark list_sidebar">
-            <div className='listbox_products'>
+            <div className='row container bg-white'>
               <tbody>
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Body</th>
                     <th>Tags</th>
+                    <th>Actions</th>
                 </tr>
                 {postPosts.map((item, index) => (
                 <tr key={index}>
@@ -105,6 +127,10 @@ function Posts(props) {
                     <td>{item.title}</td>
                     <td>{item.body}</td>
                     <td>{item.tags}</td>
+                    <td>
+                      <Link to='/admin/posts' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
+                      <Link to='/admin/posts' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                    </td>
                 </tr>
                 ))}
               </tbody>

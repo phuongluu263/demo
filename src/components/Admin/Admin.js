@@ -2,9 +2,6 @@ import React, { Children, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import users from '../../data/users';
 import './Admin.css'
-import Products from './Products/Products';
-import Posts from './Posts/Posts'
-import Users from './Users/Users'
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import {sideBarData} from './sideBarData'
@@ -13,7 +10,7 @@ function Admin(props) {
   let navigate = useNavigate();
   
   const [user, setUser] = useState({})
-
+  
   const handleClick = () =>{
     localStorage.clear();
     window.location.reload();

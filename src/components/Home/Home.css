@@ -54,7 +54,11 @@
     height: 280px;
     overflow: scroll;
     margin-left: 10px;
-}                   
+}     
+.msg_list{
+    list-style: none;
+    color: #0d6efd;
+}              
 .container{
     margin-block: 10px;
 }

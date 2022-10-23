@@ -4,8 +4,10 @@ import './Users.css'
 import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
+import * as RiIcons from "react-icons/ri";
+import * as FiIcons from "react-icons/fi";
 import {sideBarData} from './../sideBarData'
-
+import {sideBarDataUsers} from './sideBarDataUsers'
 function Users(props) {
     let navigate = useNavigate();
     const [postUsers, setPostUsers] = useState([])
@@ -91,6 +93,24 @@ function Users(props) {
               </div>
             </div>
           </div>
+
+          <div className='frm_action'>
+          <ul className='nav_list'>
+              {sideBarDataUsers.map((item, index) => {
+                return(
+                  <li key={index} className = {item.cName}>
+                    <Link to = {item.path}>
+                      {item.icon}
+                      <span>
+                        {item.title}
+                      </span>
+                    </Link>
+                  </li>        
+                )
+              })}
+            </ul>
+          </div>    
+
           <div className="p-3 text-dark list_sidebar">
             <div className='row container bg-white'>
               <table>
@@ -102,6 +122,7 @@ function Users(props) {
                       <th>email</th>
                       <th>Phone</th>
                       <th>Image</th>
+                      <th>Actions</th>
                   </tr>
                   {postUsers.map((item, index) => (
                   <tr key={index}>
@@ -113,6 +134,10 @@ function Users(props) {
                       <td>
                           <img src={item.image} alt="" height={100} />
                       </td>
+                      <td>
+                        <Link to='/admin/users' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
+                        <Link to='/admin/users' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                    </td>
                   </tr>
                   ))}
                 </tbody>
