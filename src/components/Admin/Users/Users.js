@@ -6,30 +6,26 @@ import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import * as RiIcons from "react-icons/ri";
 import * as FiIcons from "react-icons/fi";
+import * as IoIcons from "react-icons/io";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
+import AddUsers from './activeUsers/AddUsers'
 import {sideBarData} from './../sideBarData'
-import {sideBarDataUsers} from './sideBarDataUsers'
+
 function Users(props) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
     let navigate = useNavigate();
     const [postUsers, setPostUsers] = useState([])
-    const [user, setUser] = useState({})
+
     const handleClick = () =>{
       localStorage.clear();
       window.location.reload();
     }
     useEffect(() => {
       const token = localStorage.getItem('tokenData')
-      users.map(handleUser);
-      
-  
-      function handleUser(user) {
-        if (token === user.token){
-          setUser({
-            name: user.name,
-            email: user.email,
-            role: user.role
-          })
-        }
-      } 
       if(!token){
         navigate('/login')
       }
@@ -52,6 +48,19 @@ function Users(props) {
       useEffect(() => {
         fetchDataUsers();
       }, []);
+
+      const fetchAddUser = (newAddUser) => {
+        setShow(false);
+        let data = postUsers;
+        data.unshift(newAddUser)
+        setPostUsers(data);
+      }  
+
+      const fetchDeleteUsers = (id) => {
+        let data = postUsers;
+        data = data.filter(item => item.id !== id)
+        setPostUsers(data);
+      } 
   return (
     <div>
       <form className='frm_products'>
@@ -94,22 +103,19 @@ function Users(props) {
             </div>
           </div>
 
-          <div className='frm_action'>
-          <ul className='nav_list'>
-              {sideBarDataUsers.map((item, index) => {
-                return(
-                  <li key={index} className = {item.cName}>
-                    <Link to = {item.path}>
-                      {item.icon}
-                      <span>
-                        {item.title}
-                      </span>
-                    </Link>
-                  </li>        
-                )
-              })}
-            </ul>
-          </div>    
+          <Button variant="primary" className='action-text my-3' onClick={handleShow}>
+              <IoIcons.IoIosAddCircleOutline /> Add
+            </Button>
+
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add Users</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <AddUsers fetchAddUser={fetchAddUser}/>
+              </Modal.Body>
+            </Modal>  
 
           <div className="p-3 text-dark list_sidebar">
             <div className='row container bg-white'>
@@ -136,7 +142,7 @@ function Users(props) {
                       </td>
                       <td>
                         <Link to='/admin/users' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
-                        <Link to='/admin/users' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                        <Link onClick={() => fetchDeleteUsers(item.id)} className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
                     </td>
                   </tr>
                   ))}

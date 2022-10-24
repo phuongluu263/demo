@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import './Posts.css'
-import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import * as RiIcons from "react-icons/ri";
 import * as FiIcons from "react-icons/fi";
+import * as IoIcons from "react-icons/io";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
+import AddPosts from './activePosts/AddPosts'
 import {sideBarData} from './../sideBarData'
-import {sideBarDataPosts} from './sideBarDataPosts'
 function Posts(props) {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
     let navigate = useNavigate();
     const [postPosts, setPostPosts] = useState([])
-    const [user, setUser] = useState({})
+
     const handleClick = () =>{
       localStorage.clear();
       window.location.reload();
     }
     useEffect(() => {
       const token = localStorage.getItem('tokenData')
-      users.map(handleUser);
-      
-  
-      function handleUser(user) {
-        if (token === user.token){
-          setUser({
-            name: user.name,
-            email: user.email,
-            role: user.role
-          })
-        }
-      } 
       if(!token){
         navigate('/login')
       }
@@ -52,6 +47,18 @@ function Posts(props) {
       useEffect(() => {
         fetchDataPosts();
       }, []);
+
+      const fetchAddPost = (newAddPost) => {
+        setShow(false);
+        let data = postPosts;
+        data.unshift(newAddPost)
+        setPostPosts(data);
+      }   
+      const fetchDeletePosts = (id) => {
+        let data = postPosts;
+        data = data.filter(item => item.id !== id)
+        setPostPosts(data);
+      }
   return (
     <div>
       <form className='frm_products'>
@@ -94,22 +101,19 @@ function Posts(props) {
             </div>
           </div>
 
-          <div className='frm_action'>
-            <ul className='nav_list'>
-              {sideBarDataPosts.map((item, index) => {
-                return(
-                  <li key={index} className = {item.cName}>
-                    <Link to = {item.path}>
-                      {item.icon}
-                      <span>
-                        {item.title}
-                      </span>
-                    </Link>
-                  </li>        
-                )
-              })}
-            </ul>
-          </div>
+          <Button variant="primary" className='action-text my-3' onClick={handleShow}>
+              <IoIcons.IoIosAddCircleOutline /> Add
+            </Button>
+
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add Posts</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <AddPosts fetchAddPost={fetchAddPost}/>
+              </Modal.Body>
+            </Modal>
               
           <div className="p-3 text-dark list_sidebar">
             <div className='row container bg-white'>
@@ -129,7 +133,7 @@ function Posts(props) {
                     <td>{item.tags}</td>
                     <td>
                       <Link to='/admin/posts' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
-                      <Link to='/admin/posts' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                      <Link onClick={() => fetchDeletePosts(item.id)} className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
                     </td>
                 </tr>
                 ))}

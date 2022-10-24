@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import './Products.css'
-import users from './../../../data/users';
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import * as RiIcons from "react-icons/ri";
 import * as FiIcons from "react-icons/fi";
+import * as IoIcons from "react-icons/io";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
+import AddProducts from './activeProducts/AddProducts';
 import {sideBarData} from './../sideBarData'
-import {sideBarDataProducts} from './sideBarDataProducts'
 function Products(props) {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
     let navigate = useNavigate();
     const [postProducts, setPostProducts] = useState([])
 
@@ -21,8 +28,8 @@ function Products(props) {
       if(!token){
         navigate('/login')
       }
-      
     },[]);
+
     const fetchDataProducts = () => {
         fetch('https://dummyjson.com/products')
           .then((response) => response.json())
@@ -39,6 +46,20 @@ function Products(props) {
       useEffect(() => {
         fetchDataProducts();
       }, []);
+
+    const fetchAddProducts = (newAddProduct) => {
+      setShow(false);
+      let data = postProducts;
+      data.unshift(newAddProduct)
+      setPostProducts(data);
+    }  
+    
+    const fetchDeleteProducts = (id) => {
+      let data = postProducts;
+      data = data.filter(item => item.id !== id)
+      setPostProducts(data);
+    }  
+
   return (
     <div>
       <form className='frm_products'>
@@ -80,23 +101,21 @@ function Products(props) {
               </div>
             </div>
           </div>
+          
+            <Button variant="primary" className='action-text my-3' onClick={handleShow}>
+              <IoIcons.IoIosAddCircleOutline /> Add
+            </Button>
 
-          <div className='frm_action'>
-            <ul className='nav_list'>
-              {sideBarDataProducts.map((item, index) => {
-                return(
-                  <li key={index} className = {item.cName}>
-                    <Link to = {item.path}>
-                      {item.icon}
-                      <span>
-                        {item.title}
-                      </span>
-                    </Link>
-                  </li>        
-                )
-              })}
-            </ul>
-          </div>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Add Products</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <AddProducts fetchAddProducts={fetchAddProducts}/>
+              </Modal.Body>
+            </Modal>
+          
 
           <div className="p-3 text-dark list_sidebar">
             <div class="row container bg-white">
@@ -124,8 +143,8 @@ function Products(props) {
                       <img className='picture' src={item.thumbnail} alt="" height={100} />
                     </td>
                     <td>
-                      <Link to='/admin/products' className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
-                      <Link to='/admin/products' className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
+                      <Link className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
+                      <Link onClick={() => fetchDeleteProducts(item.id)} className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
                     </td>
                   </tr>
                   ))}
@@ -143,3 +162,5 @@ function Products(props) {
 
 
 export default Products
+
+
