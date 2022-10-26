@@ -45,7 +45,7 @@ function AddProducts(props) {
                     <br />
                     <input type="file" placeholder="File" className='form-control' onChange={(e) => setImage(e.target.files[0])}/>
                     <br />
-                    <Link to='/admin/products' onClick={addProducts} className='btn btn-primary add'>Add Products</Link>
+                    <Link onClick={addProducts} className='btn btn-primary add'>Add Products</Link>
                   </div>
                 </header>
             </div> 

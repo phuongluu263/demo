@@ -9,15 +9,24 @@ import * as IoIcons from "react-icons/io";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import AddProducts from './activeProducts/AddProducts';
+import UpdateProducts from './activeProducts/updateProducts'
+import Paginations from '../Paginations/Paginations';
+import {paginate} from '../Utils/paginate';
 import {sideBarData} from './../sideBarData'
 function Products(props) {
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showAdd, setShowAdd] = useState(false);
+  const handleCloseAdd = () => setShowAdd(false);
+  const handleShowAdd = () => setShowAdd(true);
+
+  const [showUpdate, setShowUpdate] = useState(false);
+  const handleCloseUpdate = () => setShowUpdate(false);
+  const handleShowUpdate = () => setShowUpdate(true);
 
     let navigate = useNavigate();
     const [postProducts, setPostProducts] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
     const handleClick = () =>{
       localStorage.clear();
@@ -48,18 +57,31 @@ function Products(props) {
       }, []);
 
     const fetchAddProducts = (newAddProduct) => {
-      setShow(false);
+      setShowAdd(false);
       let data = postProducts;
       data.unshift(newAddProduct)
       setPostProducts(data);
     }  
     
+    const fetchUpdateProducts = (newUpdateProduct, id) => {
+      setShowUpdate(false);
+      let data = postProducts;
+      data.unshift(newUpdateProduct)
+      data = data.filter(item => item.id !== id)
+      setPostProducts(data);
+    }
+
     const fetchDeleteProducts = (id) => {
       let data = postProducts;
       data = data.filter(item => item.id !== id)
       setPostProducts(data);
     }  
 
+    const HandlePageChange = (page) => {
+      setCurrentPage(page)
+    }
+
+    const paginateProducts = paginate(postProducts, currentPage, pageSize);
   return (
     <div>
       <form className='frm_products'>
@@ -102,11 +124,11 @@ function Products(props) {
             </div>
           </div>
           
-            <Button variant="primary" className='action-text my-3' onClick={handleShow}>
+            <Button variant="primary" className='action-text my-3' onClick={handleShowAdd}>
               <IoIcons.IoIosAddCircleOutline /> Add
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={showAdd} onHide={handleCloseAdd}>
               <Modal.Header closeButton>
                 <Modal.Title>Add Products</Modal.Title>
               </Modal.Header>
@@ -115,8 +137,16 @@ function Products(props) {
                 <AddProducts fetchAddProducts={fetchAddProducts}/>
               </Modal.Body>
             </Modal>
-          
-
+            
+            <Modal show={showUpdate} onHide={handleCloseUpdate}>
+              <Modal.Header closeButton>
+                <Modal.Title>Update Products</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <UpdateProducts fetchUpdateProducts = {fetchUpdateProducts}/>
+              </Modal.Body>
+            </Modal>
+                        
           <div className="p-3 text-dark list_sidebar">
             <div class="row container bg-white">
               <table>
@@ -131,7 +161,7 @@ function Products(props) {
                   <th>Actions</th>
                 </tr>
                 <tbody> 
-                  {postProducts.map((item, index) => (
+                  {paginateProducts.map((item, index) => (
                   <tr key={index}>
                     <td>{item.id}</td>
                     <td>{item.title}</td>
@@ -143,7 +173,8 @@ function Products(props) {
                       <img className='picture' src={item.thumbnail} alt="" height={100} />
                     </td>
                     <td>
-                      <Link className='btn btn-primary ed'><FiIcons.FiEdit /></Link>
+                      <Link onClick={handleShowUpdate}  className='btn btn-primary ed'><FiIcons.FiEdit />
+                      </Link>
                       <Link onClick={() => fetchDeleteProducts(item.id)} className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
                     </td>
                   </tr>
@@ -151,8 +182,10 @@ function Products(props) {
 
                 </tbody>
               </table>
+              <Paginations items = {postProducts.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {HandlePageChange} />
             </div> 
           </div>
+
         </div>
       </form>
       

@@ -10,6 +10,8 @@ import * as IoIcons from "react-icons/io";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import AddUsers from './activeUsers/AddUsers'
+import Paginations from '../Paginations/Paginations';
+import {paginate} from '../Utils/paginate';
 import {sideBarData} from './../sideBarData'
 
 function Users(props) {
@@ -19,6 +21,8 @@ function Users(props) {
   
     let navigate = useNavigate();
     const [postUsers, setPostUsers] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
 
     const handleClick = () =>{
       localStorage.clear();
@@ -61,6 +65,12 @@ function Users(props) {
         data = data.filter(item => item.id !== id)
         setPostUsers(data);
       } 
+
+      const HandlePageChange = (page) => {
+        setCurrentPage(page)
+      }
+  
+      const paginateUsers = paginate(postUsers, currentPage, pageSize);
   return (
     <div>
       <form className='frm_products'>
@@ -130,7 +140,7 @@ function Users(props) {
                       <th>Image</th>
                       <th>Actions</th>
                   </tr>
-                  {postUsers.map((item, index) => (
+                  {paginateUsers.map((item, index) => (
                   <tr key={index}>
                       <td>{item.id}</td>
                       <td>{item.firstName}</td>
@@ -148,6 +158,7 @@ function Users(props) {
                   ))}
                 </tbody>
               </table>
+              <Paginations items = {postUsers.length} currentPage = {currentPage} pageSize = {pageSize} onPageChange = {HandlePageChange} />  
             </div> 
           </div>
         </div>

@@ -5,7 +5,7 @@
 }
 .header_products{
     width: 15%;
-    height: 410vh;
+    height: 165vh;
     background-color: cadetblue;
 }
 
@@ -114,7 +114,7 @@ table{
     width: 100%;
 }
 th{
-    padding: 18px;
+    padding: 20px;
 }
 
 .ed{
