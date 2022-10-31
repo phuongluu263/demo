@@ -16,12 +16,17 @@ import {sideBarData} from './../sideBarData'
 function Products(props) {
 
   const [showAdd, setShowAdd] = useState(false);
+  const [selectedData, setSelectedData] = useState(undefined);
   const handleCloseAdd = () => setShowAdd(false);
   const handleShowAdd = () => setShowAdd(true);
 
   const [showUpdate, setShowUpdate] = useState(false);
   const handleCloseUpdate = () => setShowUpdate(false);
-  const handleShowUpdate = () => setShowUpdate(true);
+  const handleShowUpdate = (data) => 
+    {
+      setShowUpdate(true);
+      setSelectedData(data);
+    }
 
     let navigate = useNavigate();
     const [postProducts, setPostProducts] = useState([])
@@ -44,6 +49,7 @@ function Products(props) {
           .then((response) => response.json())
           .then((actualData) => {
             console.log(actualData);
+            actualData?.products?.sort((a,b)=>b.id - a.id)
             setPostProducts(actualData.products);
             console.log(postProducts);
           })
@@ -63,11 +69,12 @@ function Products(props) {
       setPostProducts(data);
     }  
     
-    const fetchUpdateProducts = (newUpdateProduct, id) => {
+    const fetchUpdateProducts = (newUpdateProduct) => {
       setShowUpdate(false);
       let data = postProducts;
-      data.unshift(newUpdateProduct)
-      data = data.filter(item => item.id !== id)
+      const idx = data.findIndex((item)=>+item.id===+newUpdateProduct.id);
+      data[idx] = newUpdateProduct;
+     // data.unshift(newUpdateProduct);
       setPostProducts(data);
     }
 
@@ -143,7 +150,7 @@ function Products(props) {
                 <Modal.Title>Update Products</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <UpdateProducts fetchUpdateProducts = {fetchUpdateProducts}/>
+                <UpdateProducts fetchUpdateProducts = {fetchUpdateProducts} selectedData={selectedData} abc="aaaa"/>
               </Modal.Body>
             </Modal>
                         
@@ -170,10 +177,10 @@ function Products(props) {
                     <td>{item.stock}</td>
                     <td>{item.price*item.stock}$ </td>
                     <td>
-                      <img className='picture' src={item.thumbnail} alt="" height={100} />
+                      <img className='picture' src={item.images[0]} alt="" height={100} />
                     </td>
                     <td>
-                      <Link onClick={handleShowUpdate}  className='btn btn-primary ed'><FiIcons.FiEdit />
+                      <Link onClick={()=>handleShowUpdate(item)}  className='btn btn-primary ed'><FiIcons.FiEdit  />
                       </Link>
                       <Link onClick={() => fetchDeleteProducts(item.id)} className='btn btn-primary ed'><RiIcons.RiDeleteBinLine /></Link>
                     </td>

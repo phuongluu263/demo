@@ -11,16 +11,16 @@ export const sideBarData =  [
         icon: <FaIcons.FaCartPlus />,
         cName: 'nav-text'
     },
-    {
-        title: 'Posts',
-        path: '/admin/posts',
-        icon: <BsIcons.BsFileEarmarkPost />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Users',
-        path: '/admin/users',
-        icon: <HiIcons.HiOutlineUserGroup />,
-        cName: 'nav-text'
-    },
+    // {
+    //     title: 'Posts',
+    //     path: '/admin/posts',
+    //     icon: <BsIcons.BsFileEarmarkPost />,
+    //     cName: 'nav-text'
+    // },
+    // {
+    //     title: 'Users',
+    //     path: '/admin/users',
+    //     icon: <HiIcons.HiOutlineUserGroup />,
+    //     cName: 'nav-text'
+    // },
 ]

@@ -129,14 +129,14 @@ function Posts(props) {
           <div className="p-3 text-dark list_sidebar">
             <div className='row container bg-white'>
               <table>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Body</th>
+                  <th>Tags</th>
+                  <th>Actions</th>
+                </tr>
                 <tbody>
-                  <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Body</th>
-                      <th>Tags</th>
-                      <th>Actions</th>
-                  </tr>
                   {paginatePosts.map((item, index) => (
                   <tr key={index}>
                       <td>{item.id}</td>
