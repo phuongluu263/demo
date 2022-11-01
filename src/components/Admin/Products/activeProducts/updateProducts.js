@@ -9,7 +9,9 @@ function UpdateProducts(props) {
   // const [price, setPrice] = useState('')
   // const [stock, setStock] = useState('')
   // const [images, setImages] = useState('')
-  useEffect(()=>{ setData(props.selectedData)},[props.selectedData])
+  useEffect(()=>{
+    setData(props.selectedData)},[props.selectedData]
+  )
 
   const updateProduct = async () => {   
     const id = data.id;

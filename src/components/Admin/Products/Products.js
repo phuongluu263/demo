@@ -13,6 +13,7 @@ import UpdateProducts from './activeProducts/updateProducts'
 import Paginations from '../Paginations/Paginations';
 import {paginate} from '../Utils/paginate';
 import {sideBarData} from './../sideBarData'
+import axios from 'axios';
 function Products(props) {
 
   const [showAdd, setShowAdd] = useState(false);
@@ -33,6 +34,12 @@ function Products(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
 
+    // 
+    const [search, setSearch] = useState('')
+    const [category, setCategory] = useState([])
+    const [categoryId, setCategoryId] = useState('')
+    // 
+
     const handleClick = () =>{
       localStorage.clear();
       window.location.reload();
@@ -51,7 +58,7 @@ function Products(props) {
             console.log(actualData);
             actualData?.products?.sort((a,b)=>b.id - a.id)
             setPostProducts(actualData.products);
-            console.log(postProducts);
+            // console.log(postProducts);
           })
           .catch((err) => {
             console.log(err.message);
@@ -74,7 +81,6 @@ function Products(props) {
       let data = postProducts;
       const idx = data.findIndex((item)=>+item.id===+newUpdateProduct.id);
       data[idx] = newUpdateProduct;
-     // data.unshift(newUpdateProduct);
       setPostProducts(data);
     }
 
@@ -87,8 +93,55 @@ function Products(props) {
     const HandlePageChange = (page) => {
       setCurrentPage(page)
     }
-
     const paginateProducts = paginate(postProducts, currentPage, pageSize);
+
+    const handleSearch = async (event) => {
+
+      event.preventDefault();
+      console.log(search);
+      return await axios
+      .get(`https://dummyjson.com/products/search?q=${search}`)
+      .then((response) => {
+        setPostProducts(response.data.products);
+        setSearch("");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    }
+
+    const getCategory = () => {
+      fetch('https://dummyjson.com/products/categories')
+        .then((response) => response.json())
+        .then((actualData) => {
+          setCategory(actualData);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    };
+
+    useEffect(() => {
+      getCategory();
+    }, []);
+
+    const handleCategory = async (event) => {
+      const getCategoryId = event.target.value;
+      // console.log(getCategoryId)
+      setCategoryId(getCategoryId)
+      event.preventDefault();
+      return await axios
+      .get(`https://dummyjson.com/products/category/${getCategoryId}`)
+      .then((response) => {
+        setPostProducts(response.data.products);
+        setCategoryId("");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    }
+
+
   return (
     <div>
       <form className='frm_products'>
@@ -123,7 +176,7 @@ function Products(props) {
           <div className="listBar">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
               <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><Link to="/" className="nav-link px-2 text-dark pl">Admin / Products</Link></li>
+                <li><Link to="/" className="nav-link px-2 text-dark pl">Admin / Products / {categoryId}</Link></li>
               </ul>
               <div className="btn_logout">
                 <Link onClick={handleClick} className="btn btn-outline-light me-2 btn_lg"><HiIcons.HiOutlineLogout />Logout</Link>
@@ -131,9 +184,32 @@ function Products(props) {
             </div>
           </div>
           
-            <Button variant="primary" className='action-text my-3' onClick={handleShowAdd}>
-              <IoIcons.IoIosAddCircleOutline /> Add
-            </Button>
+            <div className='add my-2'>
+              <Button variant="primary" className='btn_add my-3' onClick={handleShowAdd}>
+                <IoIcons.IoIosAddCircleOutline /> Add
+              </Button>
+              <div className='slt-category'>
+                <select class="form-select" aria-label="Default select example" onChange={(e) => handleCategory(e)}>
+                  <option selected>All Category</option>
+                  {
+                    category.map((item, index) => (
+                      <option key={index} value={item}>
+                        <option>{item}</option>
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
+
+              <form className='d-flex input-group w-auto frm-search'>
+                <input type='text' className='form-control' placeholder='Search...' value={search} onChange={(e) => setSearch(e.target.value)} />
+                <button type='submit' className='btn btn-primary' onClick={handleSearch}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg>
+                </button>
+              </form>
+            </div>
 
             <Modal show={showAdd} onHide={handleCloseAdd}>
               <Modal.Header closeButton>
@@ -150,12 +226,12 @@ function Products(props) {
                 <Modal.Title>Update Products</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <UpdateProducts fetchUpdateProducts = {fetchUpdateProducts} selectedData={selectedData} abc="aaaa"/>
+                <UpdateProducts fetchUpdateProducts = {fetchUpdateProducts} selectedData={selectedData}/>
               </Modal.Body>
             </Modal>
                         
           <div className="p-3 text-dark list_sidebar">
-            <div class="row container bg-white">
+            <div class="row container">
               <table>
                 <tr>
                   <th>Id</th>
